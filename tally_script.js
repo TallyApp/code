@@ -8,6 +8,7 @@ if (!$("span.tallyTitle").length) {
   // tallyTitle
   $('h1.boardName').append(' <span class="tallyTitle" />');
   $('h2.smallBoardName').append(' <span class="tallyTitle" />');
+  $("span.tallyTitle").css("color", "#156584");
 
   // tallyBar
   var barTemplate = '<span class="value"></span><span class="label"></span>';
@@ -33,7 +34,7 @@ if (!$("span.tallyTitle").length) {
 
           var tallyDiv = $( "<div class='tally' style='float: right; margin: 15px 5px 5px 5px;'/>" );
           tallyDiv.append("<span class='price'>Tally : "+ price + "</div>");
-
+		  
           $('div.pinWrapper div.pinCredits', pin).prepend(tallyDiv);
 
           $('span.tallyTitle').html('$' + total.toFixed(2));
