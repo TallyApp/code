@@ -3,7 +3,7 @@ if ($("span.tallyTitle").length) {
   $("span.tallyTitle").remove();
   $("li.tallyedPins").remove();
   $("div.tally").remove();
-};
+}
 
 var pins = $('div.item').has('div.pinHolder');
 
