@@ -1,0 +1,25 @@
+{
+  "name": "Tally",
+  "description": "Tally your pins!",
+  "version": "0.0.1",
+  "description" : "Description ...",
+  "icons": { "16": "icons/tally_icon_16x16.png", "32": "icons/tally_icon_32x32.png", "48": "icons/tally_icon_48x48.png", "128": "icons/tally_icon_128x128.png" },
+  "permissions": [
+    "activeTab"
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_title": "Tally your pins!"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["http://www.pinterest.com/*", "https://www.pinterest.com/*"],
+      "js": ["jquery.js"]
+    }
+  ],
+  "manifest_version": 2
+}
