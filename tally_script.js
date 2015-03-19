@@ -40,7 +40,9 @@ pins.each(function( index, pin ) {
 
           total = total + Number(price.substring(1));
 
-          $('div.pinWrapper div.pinCredits', pin).prepend(tallyDiv + price + '</div></div>');
+          if (!$('div.pinWrapper div.pinCredits .tally', pin).length) {
+            $('div.pinWrapper div.pinCredits', pin).prepend(tallyDiv + price + '</div></div>');
+          }
 
           $('span.tallyTitle span.tallyPrice').html('$' + total.toFixed(2));
         }
@@ -55,7 +57,11 @@ pins.each(function( index, pin ) {
       if (priceMatch) {
         var price = priceMatch[0];
         total = total + Number(price.substring(1));
-        $('div.pinWrapper div.pinCredits', pin).prepend(tallyDiv + price + '</div></div>');
+
+        if (!$('div.pinWrapper div.pinCredits .tally', pin).length) {
+          $('div.pinWrapper div.pinCredits', pin).prepend(tallyDiv + price + '</div></div>');
+        }
+
         $('span.tallyTitle span.tallyPrice').html('$' + total.toFixed(2));
       }
     }
