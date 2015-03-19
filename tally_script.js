@@ -53,7 +53,7 @@ pins.each(function( index, pin ) {
   else {
     var description = $('p.pinDescription', pin).html();
     if (description){
-      var priceMatch = description.match(/[\W\D]\d+(\.\d+)?/);
+      var priceMatch = description.match(/[\$\£\€](\d+(?:\.\d{1,2})?)/);
       if (priceMatch) {
         var price = priceMatch[0];
         total = total + Number(price.substring(1));
