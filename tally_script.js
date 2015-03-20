@@ -18,7 +18,7 @@ var barTemplate = '<span class="value"></span><span class="label"></span>';
 $('div.pinsAndFollowerCount').css('width', '300px');
 $('div.pinsAndFollowerCount ul').append('<li class="tallyedPins">'+ barTemplate +'</li>');
 
-$('li.tallyedPins span.label').html('Pins Tallied');
+$('li.tallyedPins span.label').html('Priced Pins');
 $('li.tallyedPins span.value').html(pins.length);
 
 var tallyDiv = "<div class='tally' style='float: right; margin: 15px 5px 5px 5px; font-size: 13px; font-weight: normal;'><img style='padding-bottom: 3px;' src='https://rawgit.com/TallyApp/code/master/icons/tally_icon_16x16.png'> <span class='price'>";
