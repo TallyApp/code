@@ -6,10 +6,9 @@
  *
  * @author Tally Team 
  */
+'use strict';
 
 var Tally = (function() {
-
-'use strict';
 
 var settings = {
   enabled: true
@@ -35,6 +34,27 @@ var _init = function _init() {
   });
 
   _updateIcon();
+
+  chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+    if (changeInfo.status !== 'complete')
+    console.log('updated');
+    chrome.tabs.sendMessage(tab.id, { action: 'tab_updated' }, function(response) { console.log(response); });
+    console.log(tab.url);
+  });
+
+  chrome.tabs.onCreated.addListener(function(tabId, changeInfo, tab) {         
+    console.log('created');
+    chrome.tabs.sendMessage(tab.id, { action: 'tab_created' }, function(response) { console.log(response); });
+    console.log(tab.url ? tab.url : '');
+  });
+
+  chrome.tabs.onActivated.addListener(function(activeInfo) {         
+    console.log('activated');
+    chrome.tabs.get(activeInfo.tabId, function callback(tab) {
+      chrome.tabs.sendMessage(tab.id, { action: 'tab_activated' }, function(response) { console.log(response); });
+      console.log(tab.url);
+    });
+  });
 };
 
 var _updateIcon = function _setIcon() {
@@ -78,24 +98,3 @@ return {
 })();
 
 Tally.init();
-
-// chrome.browserAction.onClicked.addListener(function(tab) {
-//   chrome.tabs.executeScript(null, { file: "tally_script.js" });
-// });
-
-// chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
-//   console.log('updated');
-//   console.log(tab.url);
-// });
-
-// chrome.tabs.onCreated.addListener(function(tabId, changeInfo, tab) {         
-//   console.log('created');
-//   console.log(tab.url);
-// });
-
-// chrome.tabs.onActivated.addListener(function(activeInfo) {         
-//   console.log('activated');
-//   chrome.tabs.get(activeInfo.tabId, function callback(tab) {
-//     console.log(tab.url);
-//   });
-// });

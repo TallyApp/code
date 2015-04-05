@@ -1,12 +1,3 @@
-/**
- * @file Tally Chrome Extension
- * @name Tally
- *
- * Tally extension main code.
- *
- * @author Tally Team 
- */
-
 /** 
  * jQuery is not injected if we're not on pinterest so clicking the Tally 
  * button will trigger an error. We're only running the code if we're on
