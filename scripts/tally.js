@@ -9,6 +9,10 @@
 'use strict';
 
 var TallyClient = (function() {
+  var settings = {
+    enabled: true
+  };
+
   var board = {
     id: undefined,
     enabled: true,
@@ -17,14 +21,56 @@ var TallyClient = (function() {
 
   var _init = function _init() {
     console.log('init client');
-    chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
-      console.log('Message received', msg.action);
-    });
 
-    // Add the Tally button
-    var boardTemplate = $('<span class="tallyTitle" style="color:#156584; margin-right:4px; font-size:1.1em; position:relative; top:2px;"><a href="#"><img style="height: 22px; padding-bottom: 4px;" src="https://rawgit.com/TallyApp/code/master/icons/tally_icon_32x32.png"></a><span class="tallyPrice" /></span>');
-    $('div.boardButtons').prepend(boardTemplate);
-    console.log('injected');
+    chrome.runtime.sendMessage({ action: "settings" }, function(response) {
+      settings = response.settings;
+
+      if (!settings.enabled) {
+        board.enabled = false;
+      }
+
+      chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+        console.log('Message received', msg.action);
+      });
+
+      // Add the Tally button
+      _updateBoardButton();
+
+      console.log('injected');
+    });
+  };
+
+  var _updateBoardButton = function _updateBoardButton() {
+    var iconURL = board.enabled ? _getURL('icons/browsericons/icon38.png') : _getURL('icons/browsericons/icon38-off.png');
+    
+    if ($('.tallyBoardButton').length === 0) {
+      var template = _.template('<span class="tallyBoardButton"><a href="#"><img src="<%= icon %>"></a><span class="tallyPrice" /></span>');
+      var compiled = template({ icon: iconURL });
+
+      $('div.boardButtons').prepend(compiled);
+      $('.tallyBoardButton a').click(_toggleTally);
+    }
+    else {
+      $('.tallyBoardButton img').attr('src', iconURL);
+    }
+
+    board.enabled ? $('.tallyBoardButton .tallyPrice').show() : $('.tallyBoardButton .tallyPrice').hide();
+  };
+
+  var _toggleTally = function _toggleTally() {
+    if (!settings.enabled) {
+      return;
+    }
+
+    board.enabled = !board.enabled;
+
+    _updateBoardButton();
+
+    return false;
+  };
+
+  var _getURL = function _getURL(file) {
+    return chrome.extension.getURL(file);
   };
 
   return {

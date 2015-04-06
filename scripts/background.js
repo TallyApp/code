@@ -17,6 +17,12 @@ var settings = {
 var noop = function noop() {};
 
 var _init = function _init() {
+  chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    if (request.action === "settings") {
+      sendResponse({ settings: settings });
+    }
+  });
+  
   chrome.browserAction.onClicked.addListener(function(tab) {
     settings.enabled = !settings.enabled;
 
@@ -38,13 +44,13 @@ var _init = function _init() {
   chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     if (changeInfo.status !== 'complete')
     console.log('updated');
-    chrome.tabs.sendMessage(tab.id, { action: 'tab_updated' }, function(response) { console.log(response); });
+    chrome.tabs.sendMessage(tabId, { action: 'tab_updated' }, function(response) { console.log(response); });
     console.log(tab.url);
   });
 
   chrome.tabs.onCreated.addListener(function(tabId, changeInfo, tab) {         
     console.log('created');
-    chrome.tabs.sendMessage(tab.id, { action: 'tab_created' }, function(response) { console.log(response); });
+    chrome.tabs.sendMessage(tabId, { action: 'tab_created' }, function(response) { console.log(response); });
     console.log(tab.url ? tab.url : '');
   });
 

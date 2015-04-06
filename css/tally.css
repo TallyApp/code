@@ -1,0 +1,16 @@
+.tallyBoardButton {
+  color:#156584;
+  margin-right:4px;
+  font-size:1.1em;
+  position:relative;
+  top:2px;
+}
+
+.tallyBoardButton img {
+  height: 22px;
+  padding-bottom: 4px;
+}
+
+.tallyBoardButton .tallyPrice {
+
+}

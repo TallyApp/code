@@ -32,6 +32,9 @@
         "http://www.pinterest.com/*",
         "https://www.pinterest.com/*"
       ],
+      "css": [
+        "css/tally.css"
+      ],
       "js": [
         "lib/jquery.js",
         "lib/lodash.min.js",
@@ -39,5 +42,9 @@
       ]
     }
   ],
-  "manifest_version": 2
+  "manifest_version": 2,
+  "web_accessible_resources": [
+    "icons/browsericons/icon38-off.png",
+    "icons/browsericons/icon38.png"
+  ]
 }
