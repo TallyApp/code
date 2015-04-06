@@ -45,6 +45,8 @@
   "manifest_version": 2,
   "web_accessible_resources": [
     "icons/browsericons/icon38-off.png",
-    "icons/browsericons/icon38.png"
+    "icons/browsericons/icon38.png",
+    "icons/browsericons/icon19-off.png",
+    "icons/browsericons/icon19.png"
   ]
 }

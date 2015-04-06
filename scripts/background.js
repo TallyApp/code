@@ -18,7 +18,7 @@ var noop = function noop() {};
 
 var _init = function _init() {
   chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.action === "settings") {
+    if (request.sender === 'tally-client' && request.action === 'settings-get') {
       sendResponse({ settings: settings });
     }
   });
@@ -26,10 +26,10 @@ var _init = function _init() {
   chrome.browserAction.onClicked.addListener(function(tab) {
     settings.enabled = !settings.enabled;
 
-    // chrome.tabs.executeScript(null, { file: "tally_script.js" });
-
     _updateIcon();
     _saveOption('tallySettings', settings, noop);
+
+    _toggleTabs();
   });
 
   _loadOption('tallySettings', function loadCallback(value) {
@@ -60,6 +60,16 @@ var _init = function _init() {
       chrome.tabs.sendMessage(tab.id, { action: 'tab_activated' }, function(response) { console.log(response); });
       console.log(tab.url);
     });
+  });
+};
+
+var _toggleTabs = function _toggleTabs() {
+  chrome.tabs.query({}, function(tabs) {
+    var message = { sender: 'tally', action: 'settings-update', settings: settings };
+
+    for (var i = 0; i < tabs.length; ++i) {
+      chrome.tabs.sendMessage(tabs[i].id, message);
+    }
   });
 };
 

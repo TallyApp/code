@@ -11,6 +11,37 @@
   padding-bottom: 4px;
 }
 
-.tallyBoardButton .tallyPrice {
+.tallyBoardButton .tallyTotal {
+  margin-left: 5px;
+}
 
+.tally-off .tallyBoardButton .tallyTotal {
+  display: none;
+}
+
+.tally-on .tallyBoardButton .tallyTotal {
+  display: inline;
+}
+
+.tallyPin {
+  float: right;
+  margin: 15px 5px 5px 5px;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.tallyPin img {
+  padding-bottom: 3px;
+}
+
+.tallyPin .price {
+  margin-left: 5px;
+}
+
+.tally-off .tallyPin {
+  display: none;
+}
+
+.tally-on .tallyPin {
+  display: inline;
 }
