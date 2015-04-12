@@ -4,7 +4,7 @@
  *
  * Tally extension background code.
  *
- * @author Tally Team 
+ * @author Tally Team
  */
 'use strict';
 
@@ -22,7 +22,7 @@ var _init = function _init() {
       sendResponse({ settings: settings });
     }
   });
-  
+
   chrome.browserAction.onClicked.addListener(function(tab) {
     settings.enabled = !settings.enabled;
 
@@ -33,7 +33,7 @@ var _init = function _init() {
   });
 
   _loadOption('tallySettings', function loadCallback(value) {
-    if (value !== undefined) {
+    if (value) {
       settings = value;
       _updateIcon();
     }
@@ -48,13 +48,13 @@ var _init = function _init() {
     console.log(tab.url);
   });
 
-  chrome.tabs.onCreated.addListener(function(tabId, changeInfo, tab) {         
+  chrome.tabs.onCreated.addListener(function(tabId, changeInfo, tab) {
     console.log('created');
     chrome.tabs.sendMessage(tabId, { action: 'tab_created' }, function(response) { console.log(response); });
     console.log(tab.url ? tab.url : '');
   });
 
-  chrome.tabs.onActivated.addListener(function(activeInfo) {         
+  chrome.tabs.onActivated.addListener(function(activeInfo) {
     console.log('activated');
     chrome.tabs.get(activeInfo.tabId, function callback(tab) {
       chrome.tabs.sendMessage(tab.id, { action: 'tab_activated' }, function(response) { console.log(response); });
@@ -95,7 +95,7 @@ var _loadOption = function _loadOption(key, callback) {
       console.warn(chrome.runtime.lastError.message);
       return callback(localStorage.getItem(key));
     }
-    
+
     if (items[key] === undefined) {
       return callback(localStorage.getItem(key));
     }
