@@ -15,12 +15,12 @@
   margin-left: 5px;
 }
 
-.tally-off .tallyBoardButton .tallyTotal {
-  display: none;
+.tallyBoardButton .tallyTotal {
+  display: inline;
 }
 
-.tally-on .tallyBoardButton .tallyTotal {
-  display: inline;
+.tally-off .tallyBoardButton {
+  display: none;
 }
 
 .tallyPin {
